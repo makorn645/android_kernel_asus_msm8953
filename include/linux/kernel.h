@@ -15,7 +15,6 @@
 #include <linux/build_bug.h>
 #include <asm/byteorder.h>
 #include <uapi/linux/kernel.h>
-#include <linux/asusdebug.h>
 
 // +++ ASUS_BSP : add for miniporting
 enum DEVICE_HWID
