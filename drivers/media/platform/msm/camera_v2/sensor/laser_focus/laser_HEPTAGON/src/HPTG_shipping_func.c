@@ -591,7 +591,7 @@ int	Read_Range_Data_OldKdata(struct msm_laser_focus_ctrl_t *dev_t){
 		
 	if(RawRange&VALID_DATA){
 			
-		if((error_status==NO_ERROR)){
+		if(error_status==NO_ERROR){
 			errcode = 0;
 		
 			if(IT_verify < ItB){
