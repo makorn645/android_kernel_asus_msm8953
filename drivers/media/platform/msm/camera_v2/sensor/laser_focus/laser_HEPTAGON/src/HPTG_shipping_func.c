@@ -36,7 +36,7 @@ static uint16_t debug_raw_range = 0;
 static uint16_t debug_raw_confidence = 0;
 
 extern int g_factory;
-extern int Laser_log_cnt;
+extern uint16_t Laser_log_cnt;
 extern int proc_log_cnt;
 extern uint16_t Settings[NUMBER_OF_SETTINGS];
 

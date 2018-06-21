@@ -46,7 +46,8 @@ uint16_t Range2 =OUT_OF_RANGE;
 extern int g_ftm_mode;
 extern int g_factory;
 
-extern int Laser_log_cnt;
+extern uint16_t Laser_log_cnt;
+
 int proc_log_cnt=0;
 
 extern bool timedMeasure;
