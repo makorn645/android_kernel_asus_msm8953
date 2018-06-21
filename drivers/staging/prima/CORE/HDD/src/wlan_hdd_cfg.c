@@ -4042,7 +4042,9 @@ static char *i_trim(char *str)
    if(*str == '\0') return str;
 
    /* Find the first non white-space*/
-   for (ptr = str; i_isspace(*ptr); ptr++);
+   for (ptr = str; i_isspace(*ptr); ptr++) {
+      /* Do nothing */
+   }
       if (*ptr == '\0')
          return str;
 
@@ -4051,7 +4053,9 @@ static char *i_trim(char *str)
 
    /* Find the last non white-space */
    ptr += strlen(ptr) - 1;
-   for (; ptr != str && i_isspace(*ptr); ptr--);
+   for (; ptr != str && i_isspace(*ptr); ptr--) {
+      /* Do nothing */
+   }
       /* Null terminate the following character */
       ptr[1] = '\0';
 
