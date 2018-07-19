@@ -1,0 +1,5 @@
+config MACH_ASUS_LIBRA_LEO
+    bool "Asus Libra Leo"
+    depends on ARCH_MSM8953
+    help
+      Support for Asus Libra and Leo platform
