@@ -3052,6 +3052,10 @@ static int msm_isp_stop_axi_stream(struct vfe_device *vfe_dev,
 	unsigned long flags;
 	struct msm_isp_timestamp timestamp;
 
+#ifdef CONFIG_MACH_ASUS_LIBRA_LEO
+    struct dual_vfe_resource *dual_vfe_res = NULL; //ASUS_BSP ZZ++ Fix vfe error
+#endif
+
 	if (stream_cfg_cmd->num_streams > MAX_NUM_STREAM ||
 		stream_cfg_cmd->num_streams == 0)
 		return -EINVAL;
@@ -3191,9 +3195,22 @@ static int msm_isp_stop_axi_stream(struct vfe_device *vfe_dev,
 	}
 	if (halt) {
 		/*during stop immediately, stop output then stop input*/
+
+#ifdef CONFIG_MACH_ASUS_LIBRA_LEO
+        if (vfe_dev->is_split && vfe_dev->pdev->id == ISP_VFE0) {
+            dual_vfe_res = vfe_dev->common_data->dual_vfe_res;
+            vfe_dev->ignore_irq = 1;
+            dual_vfe_res->
+            vfe_dev[!vfe_dev->pdev->id]->ignore_irq = 1;
+        }
+#endif
+
 		vfe_dev->hw_info->vfe_ops.axi_ops.halt(vfe_dev, 1);
 		vfe_dev->hw_info->vfe_ops.core_ops.reset_hw(vfe_dev, 0, 1);
 		vfe_dev->hw_info->vfe_ops.core_ops.init_hw_reg(vfe_dev);
+#ifdef CONFIG_MACH_ASUS_LIBRA_LEO
+        vfe_dev->ignore_irq = 0; //ASUS_BSP ZZ++ Fix vfe error
+#endif
 	}
 
 	msm_isp_update_camif_output_count(vfe_dev, stream_cfg_cmd);

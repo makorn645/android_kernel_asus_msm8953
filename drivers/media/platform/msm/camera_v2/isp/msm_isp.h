@@ -789,6 +789,9 @@ struct vfe_device {
 	/* irq info */
 	uint32_t irq0_mask;
 	uint32_t irq1_mask;
+#ifdef CONFIG_MACH_ASUS_LIBRA_LEO
+    uint32_t ignore_irq; //ASUS_BSP ZZ++ Fix vfe error
+#endif
 	/* before halt irq info */
 	uint32_t recovery_irq0_mask;
 	uint32_t recovery_irq1_mask;

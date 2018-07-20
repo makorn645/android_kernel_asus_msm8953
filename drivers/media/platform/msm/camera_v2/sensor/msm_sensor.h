@@ -125,3 +125,7 @@ long msm_sensor_subdev_fops_ioctl(struct file *file,
 	unsigned long arg);
 #endif
 #endif
+
+#ifdef CONFIG_MACH_ASUS_LIBRA_LEO
+int sensor_read_temp(uint16_t *tmp);
+#endif

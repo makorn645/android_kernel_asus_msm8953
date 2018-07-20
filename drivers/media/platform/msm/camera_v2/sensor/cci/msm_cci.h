@@ -23,6 +23,11 @@
 #include "msm_sd.h"
 #include "cam_soc_api.h"
 
+#ifdef CONFIG_MACH_ASUS_LIBRA_LEO
+#define DEFINE_MSM_MUTEX(mutexname) \
+    static struct mutex mutexname = __MUTEX_INITIALIZER(mutexname)
+#endif
+
 #define NUM_MASTERS 2
 #define NUM_QUEUES 2
 
