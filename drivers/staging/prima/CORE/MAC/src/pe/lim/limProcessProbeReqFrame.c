@@ -500,7 +500,7 @@ limProcessProbeReqFrame(tpAniSirGlobal pMac, tANI_U8 *pRxPacketInfo,tpPESession 
                 }
                 if (psessionEntry->limSystemRole == eLIM_AP_ROLE)
                 {
-                  
+
                     if ( (psessionEntry->APWPSIEs.SirWPSProbeRspIE.FieldPresent &
                                                SIR_WPS_PROBRSP_VER_PRESENT) &&
                          (probeReq.wscIePresent ==  1) &&

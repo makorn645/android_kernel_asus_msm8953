@@ -880,7 +880,7 @@ __limProcessDelTsReq(tpAniSirGlobal pMac, tANI_U8 *pRxPacketInfo,tpPESession pse
     // if no Admit Control, ignore the request
     if (tsinfo->traffic.accessPolicy == SIR_MAC_ACCESSPOLICY_EDCA)
     {
-    
+
         if (upToAc(tsinfo->traffic.userPrio) >= MAX_NUM_AC)
         {
             limLog(pMac, LOGW, FL("DelTs with UP %d has no AC - ignoring request"),
