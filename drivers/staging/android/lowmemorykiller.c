@@ -170,7 +170,7 @@ int adjust_minadj(short *min_score_adj)
 static int lmk_vmpressure_notifier(struct notifier_block *nb,
 			unsigned long action, void *data)
 {
-	int other_free, other_file;
+	int other_free = 0, other_file = 0;
 	int pressure_crit = 97;
 	int processed = 0;
 	unsigned long pressure = action;
@@ -193,7 +193,7 @@ static int lmk_vmpressure_notifier(struct notifier_block *nb,
 		pressure_crit = 90;
 	}
 	//if the pressure is larger than 98, and the other file is larger than vmpressure_file_min, activate the a_lmk
-	if (!processed && pressure >= pressure_crit) 
+	if (!processed && pressure >= pressure_crit)
 	{
 		//printk("lowmem:lmk_vmpressure_notifier pressure=%ld\n", pressure);
 		if (lowmem_adj_size < array_size)

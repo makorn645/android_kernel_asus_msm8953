@@ -780,7 +780,7 @@ read_err:
 *
 */
 int MCPU_Controller(struct msm_laser_focus_ctrl_t *dev_t, int mode){
-	int status;
+	int status = 0;
 
 	LOG_Handler(LOG_DBG, "%s: procdure (%d)\n", __func__, mode);
 	switch(mode){
@@ -789,25 +789,21 @@ int MCPU_Controller(struct msm_laser_focus_ctrl_t *dev_t, int mode){
 			if(status >= 0)
 				status = CCI_I2C_WrWord(dev_t, COMMAND_REGISTER, (MCPU_TO_ON|VALIDATE_CMD));
 			break;
-			
 		case MCPU_OFF:
 			// Enable patch memory
 			status = CCI_I2C_WrWord(dev_t, PMU_CONFIG, (PATCH_MEM_EN|PATCH_CODE_LD_EN));
 			if(status >= 0)
 				status = CCI_I2C_WrWord(dev_t, COMMAND_REGISTER, (GO_MCPU_OFF|VALIDATE_CMD));
 			break;
-			
 		case MCPU_STANDBY:
 			status = CCI_I2C_WrWord(dev_t, COMMAND_REGISTER, (GO_STANDBY|VALIDATE_CMD));
 			break;
-			
 		default:
 			LOG_Handler(LOG_ERR, "%s MCPU mode invalid (%d)\n", __func__, mode);
 			break;
 	}
 
 	udelay(MCPU_DELAY_TIME);
-	
 	return status;
 }
 

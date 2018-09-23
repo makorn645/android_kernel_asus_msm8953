@@ -3274,7 +3274,7 @@ static int smbchg_system_temp_level_set(struct smbchg_chip *chip,
 
 	if (!stop_thermal_flag) {
 		printk("[BAT][CHG] thermal engine detect, Thermal_Level = %d\n", Thermal_Level);
-		call_from_thermal_engine = 1; 
+		call_from_thermal_engine = 1;
 		thermal_level_control(chip);
 	} else {
 		printk("[BAT][CHG] stop_thermal_flag = 1, skip thermal engine\n");
@@ -5792,7 +5792,7 @@ int judge_PRT8301_temp(void)
 	volt = (int)(1200*AIN1/255);
 	temp = voltage_to_temp(volt);
 	temp_mc = 1000*temp;
-	
+
 	return temp_mc;
 }
 
@@ -5800,7 +5800,7 @@ void thermal_level_control(struct smbchg_chip *chip)
 {
 	int cap;
 	bool thermal_suspend_charging;
-	u8 ICL;
+	u8 ICL = 0;
 	int rc;
 	int latest_temp;
 	int latest_level;
@@ -5820,7 +5820,7 @@ void thermal_level_control(struct smbchg_chip *chip)
 
 	if (call_from_thermal_engine) {
 		latest_level = Thermal_Level;
-	} else {	
+	} else {
 		latest_temp = judge_PRT8301_temp();
 		latest_level = t2l_sample(latest_temp);
 	}
@@ -5836,15 +5836,15 @@ void thermal_level_control(struct smbchg_chip *chip)
 		printk("[BAT][CHG] Thermal_Level old : %d, new : %d\n", Thermal_Level_old, latest_level);
 
 		switch(latest_level) {
-		case 0:	
+		case 0:
 			thermal_suspend_charging = 0;
-			if (chip->CHG_TYPE_flag == TYPEC_3P0A || chip->CHG_TYPE_flag == ASUS_750K || 
+			if (chip->CHG_TYPE_flag == TYPEC_3P0A || chip->CHG_TYPE_flag == ASUS_750K ||
 				chip->CHG_TYPE_flag == ASUS_200K || chip->CHG_TYPE_flag == PB_2A || chip->CHG_TYPE_flag == DCP_2A)
 				ICL = USBIN_IL_1910mA;
 			else if (chip->CHG_TYPE_flag == TYPEC_1P5A || chip->CHG_TYPE_flag == CDP)
 				ICL = USBIN_IL_1400mA;
-			else if (chip->CHG_TYPE_flag == DCP_1A || chip->CHG_TYPE_flag == RESERVE_390_1A || 
-				chip->CHG_TYPE_flag == RESERVE_100_1A || chip->CHG_TYPE_flag == ADC_NOT_READY_1A || 
+			else if (chip->CHG_TYPE_flag == DCP_1A || chip->CHG_TYPE_flag == RESERVE_390_1A ||
+				chip->CHG_TYPE_flag == RESERVE_100_1A || chip->CHG_TYPE_flag == ADC_NOT_READY_1A ||
 				chip->CHG_TYPE_flag == UNDEFINED || chip->CHG_TYPE_flag == OTHERS)
 				ICL = USBIN_IL_900mA;
 			break;
@@ -5856,7 +5856,7 @@ void thermal_level_control(struct smbchg_chip *chip)
 			thermal_suspend_charging = 0;
 			cap = get_prop_batt_capacity(chip);
 			if (cap >= 15)
-				ICL = USBIN_IL_500mA; 
+				ICL = USBIN_IL_500mA;
 			else if (cap >= 8)
 				ICL = USBIN_IL_700mA;
 			else
@@ -5955,7 +5955,7 @@ static bool ADF_check_status(void)
 void jeita_judge_work(struct work_struct *work)
 {
 	int state;
-	int rc, ret;
+	int rc, ret = 0;
 	int batt_volt = 4000;
 	u8 FV_reg;
 	u8 FV_CFG_reg_value = 0;	//set float_voltage_reg_value

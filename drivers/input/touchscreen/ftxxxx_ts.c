@@ -224,7 +224,7 @@ extern int get_audiomode(void);
 */
 int ftxxxx_i2c_Read(struct i2c_client *client, char *writebuf, int writelen, char *readbuf, int readlen)
 {
-	int ret;
+	int ret = 0;
 	int retry = 0;
 
 	if (writelen > 0) {
@@ -294,7 +294,7 @@ int ftxxxx_i2c_Read(struct i2c_client *client, char *writebuf, int writelen, cha
 /*write data by i2c*/
 int ftxxxx_i2c_Write(struct i2c_client *client, char *writebuf, int writelen)
 {
-	int ret;
+	int ret = 0;
 	int retry = 0;
 	if(writelen>0){
 		struct i2c_msg msg[] = {
